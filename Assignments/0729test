@@ -1,0 +1,48 @@
+import networkx as nx
+import matplotlib.pyplot as plt
+
+# Initialize a graph
+G = nx.Graph()
+
+# Add nodes and edges (example data)
+nodes = {
+    'Fraudster 1': {'type': 'fraudster'},
+    'Fraudster 2': {'type': 'fraudster'},
+    'AI Tool A': {'type': 'ai_tool'},
+    'AI Tool B': {'type': 'ai_tool'},
+    'Business X': {'type': 'business'},
+    'Business Y': {'type': 'business'},
+    'Business Z': {'type': 'business'}
+}
+
+# Add nodes with attributes
+for node, attr in nodes.items():
+    G.add_node(node, **attr)
+
+# Add edges representing relationships
+edges = [
+    ('Fraudster 1', 'AI Tool A'),
+    ('Fraudster 1', 'Business X'),
+    ('Fraudster 2', 'AI Tool B'),
+    ('Fraudster 2', 'Business Y'),
+    ('AI Tool A', 'Business Z'),
+    ('AI Tool B', 'Business X')
+]
+
+G.add_edges_from(edges)
+
+# Define colors for different types of nodes
+color_map = {
+    'fraudster': 'red',
+    'ai_tool': 'blue',
+    'business': 'green'
+}
+
+# Assign colors based on node type
+node_colors = [color_map[G.nodes[node]['type']] for node in G.nodes]
+
+# Draw the graph
+pos = nx.spring_layout(G)
+nx.draw(G, pos, with_labels=True, node_color=node_colors, node_size=1500, font_size=10, font_color='white')
+plt.show()
+
